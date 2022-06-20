@@ -8,7 +8,7 @@ using WeatherWebSolution.DAL.Entities;
 
 namespace WeatherWebSolution.DAL.Context
 {
-    internal class DataDB : DbContext
+    public class DataDB : DbContext
     {
         public DbSet<DataValue> Values { get; set; }
         public DbSet<DataSource> Sources { get; set; }

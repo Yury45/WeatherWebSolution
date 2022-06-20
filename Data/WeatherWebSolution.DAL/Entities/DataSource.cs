@@ -7,7 +7,7 @@ using WeatherWebSolution.Intefaces.Base.Entities;
 
 namespace WeatherWebSolution.DAL.Entities
 {
-    internal class DataSource : INamedEntity
+    public class DataSource : INamedEntity
     {
         public int Id { get; set; }
 

@@ -7,7 +7,7 @@ using WeatherWebSolution.Intefaces.Base.Entities;
 
 namespace WeatherWebSolution.DAL.Entities
 {
-    internal class DataValue : IEntity
+    public class DataValue : IEntity
     {
         public int Id { get; set; }
 
