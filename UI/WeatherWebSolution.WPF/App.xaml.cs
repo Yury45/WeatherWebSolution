@@ -14,6 +14,8 @@ namespace WeatherWebSolution.WPF
         public static Window FocusedWindow => Current.Windows.Cast<Window>().FirstOrDefault(w => w.IsFocused);
         public static Window ActivedWindow => Current.Windows.Cast<Window>().FirstOrDefault(w => w.IsActive);
 
+        public static Window CurrentWindow => FocusedWindow ?? ActivedWindow;
+
         private static IHost __Host;
 
         public static IHost Host => __Host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
@@ -32,14 +34,14 @@ namespace WeatherWebSolution.WPF
 
             base.OnStartup(e);
 
-            await host.StartAsync();
+            await host.StartAsync().ConfigureAwait(false);
         }
 
         protected override async void OnExit(ExitEventArgs e)
         {
             base.OnExit(e);
 
-            using (Host) await Host.StopAsync();
+            using (Host) await Host.StopAsync().ConfigureAwait(false);
         }
     }
 }

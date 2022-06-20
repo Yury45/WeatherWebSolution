@@ -10,8 +10,12 @@ namespace WeatherWebSolution.WPF.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        public MainWindowViewModel()
+        {
 
-        #region _Text : string - Текстовое значение
+        }
+
+        #region _Title : string - Название главного окна
 
         /// <summary>Поле под название приложения</summary>
         private string _Title = "Application";

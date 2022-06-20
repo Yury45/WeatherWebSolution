@@ -8,15 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\**" />
+    <Compile Remove="Resources\**" />
     <Compile Remove="Services\Interfaces\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="Resources\**" />
     <EmbeddedResource Remove="Services\Interfaces\**" />
+    <None Remove="Models\**" />
+    <None Remove="Resources\**" />
     <None Remove="Services\Interfaces\**" />
+    <Page Remove="Models\**" />
+    <Page Remove="Resources\**" />
     <Page Remove="Services\Interfaces\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Resources\Base\" />
   </ItemGroup>
 
   <ItemGroup>
