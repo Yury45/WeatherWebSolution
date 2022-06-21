@@ -6,41 +6,56 @@ using System.Threading.Tasks;
 
 namespace WeatherWebSolution.Intefaces.Base.Entities.Reposytories
 {
-    internal interface IRepository<T>where T : IEntity
+    internal interface IRepository<T> where T : IEntity
     {
-        Task<bool> ExistId(int id);
+        //Метод возвращает факт наличия cущности по Id
+        Task<bool> ExistId(int id, CancellationToken cancel = default);
 
-        Task<bool> Exist(T item);
+        //Метод возвращает факт наличия cущности T целиком
+        Task<bool> Exist(T item, CancellationToken cancel = default);
 
-        Task<int> GetCount();
+        //Метод возвращает общегее количество сущностей, либо null
+        Task<int> GetCount(CancellationToken cancel = default);
 
-        Task<IEnumerable<T>> GetAll();
+        //Метод возвращает перечисление всех сущностей, либо null
+        Task<IEnumerable<T>> GetAll(CancellationToken cancel = default);
 
-        Task<IEnumerable<T>> Get(int skip, int count);
+        //Метод возвращает перечесление некоторого количества (count) сущностей с определенного номера (skip) от начала, либо null
+        Task<IEnumerable<T>> Get(int skip, int count, CancellationToken cancel = default);
 
-        Task<IPage<T>> GetPage(int pageIndex, int pageSize);
+        //Метод возвращает определенную страницу заданного размера, либо null
+        Task<IPage<T>> GetPage(int pageIndex, int pageSize, CancellationToken cancel = default);
 
-        Task<T> GetById(int id);
+        //Метод возвращает cущность по Id, либо null
+        Task<T> GetById(int id, CancellationToken cancel = default);
 
-        Task<T> Add(T item);
+        //Метод сохраняет в Repository и возвращает переданную в него cущность, либо null
+        Task<T> Add(T item, CancellationToken cancel = default);
 
-        Task<T> Update(T item);
+        //Метод обновляет и возвращает возвращает переданную в него cущность, либо null
 
-        Task<T> Delete(T item);
+        //Метод удаляет сущность из Repository и возвращает удаленный элемент, либо null
+        Task<T> Delete(T item, CancellationToken cancel = default);
 
-        Task<T> DeleteById(int id);
+        //Метод удаляет сущность из Repository по Id и возвращает удаленный элемент, либо null
+        Task<T> DeleteById(int id, CancellationToken cancel = default);
     }
 
     public interface IPage<T>
     {
+        //Метод возвращает перечисление всех элементов
         IEnumerable<T> Items();
 
+        //свойство - возвращает количество всех элементов перечисления 
         int TotalCount { get; }
 
+        //свойство - возвращает номер страницы
         int PageIndex { get; }
 
+        //свойство - возвращает размер страницы
         int PageSize { get; }
 
+        //Метод возвращает общее количество страниц
         int TotalPagesCount => (int)Math.Ceiling((double)TotalCount / PageSize);
 
     }
