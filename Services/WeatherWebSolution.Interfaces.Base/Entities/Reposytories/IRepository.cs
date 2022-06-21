@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeatherWebSolution.Intefaces.Base.Entities.Reposytories
 {
-    internal interface IRepository<T> where T : IEntity
+    public interface IRepository<T> where T : IEntity
     {
         //Метод возвращает факт наличия cущности по Id
         Task<bool> ExistId(int id, CancellationToken cancel = default);
@@ -33,6 +33,7 @@ namespace WeatherWebSolution.Intefaces.Base.Entities.Reposytories
         Task<T> Add(T item, CancellationToken cancel = default);
 
         //Метод обновляет и возвращает возвращает переданную в него cущность, либо null
+        Task<T> Update(T item, CancellationToken cancel = default);
 
         //Метод удаляет сущность из Repository и возвращает удаленный элемент, либо null
         Task<T> Delete(T item, CancellationToken cancel = default);
@@ -44,7 +45,7 @@ namespace WeatherWebSolution.Intefaces.Base.Entities.Reposytories
     public interface IPage<T>
     {
         //Метод возвращает перечисление всех элементов
-        IEnumerable<T> Items();
+        IEnumerable<T> Items { get; }
 
         //свойство - возвращает количество всех элементов перечисления 
         int TotalCount { get; }
