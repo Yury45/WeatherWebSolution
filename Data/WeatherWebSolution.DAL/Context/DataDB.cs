@@ -24,10 +24,6 @@ namespace WeatherWebSolution.DAL.Context
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
 
-            model.Entity<DataSource>()
-                .HasIndex(source => source.Name)
-                .IsUnique();
-
         }
     }
 }
