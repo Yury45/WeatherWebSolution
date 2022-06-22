@@ -22,7 +22,12 @@ namespace WeatherWebSolution.DAL.Context
             model.Entity<DataSource>()
                 .HasMany<DataValue>()
                 .WithOne()
-                .OnDelete(DeleteBehavior.Cascade); ;
+                .OnDelete(DeleteBehavior.Cascade);
+
+            model.Entity<DataSource>()
+                .HasIndex(source => source.Name)
+                .IsUnique();
+
         }
     }
 }

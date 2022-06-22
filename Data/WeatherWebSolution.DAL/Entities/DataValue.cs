@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeatherWebSolution.DAL.Entities.Base;
 using WeatherWebSolution.Intefaces.Base.Entities;
 
 namespace WeatherWebSolution.DAL.Entities
 {
-    public class DataValue : IEntity
+    public class DataValue : Entity
     {
-        public int Id { get; set; }
 
         public DateTimeOffset Time { get; set; } = DateTimeOffset.Now;
 

@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using WeatherWebSolution.DAL.Entities.Base;
 using WeatherWebSolution.Intefaces.Base.Entities;
 
 namespace WeatherWebSolution.DAL.Entities
 {
-    public class DataSource : INamedEntity
+    [Index(nameof(Name), IsUnique = true)]
+    public class DataSource : NamedEntity
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
         public string Description { get; set; }
     }
 }
