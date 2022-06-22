@@ -21,7 +21,7 @@ namespace WeatherWebSolution.DAL.Context
 
             model.Entity<DataSource>()
                 .HasMany<DataValue>()
-                .WithOne()
+                .WithOne(v => v.Source)
                 .OnDelete(DeleteBehavior.Cascade);
 
         }

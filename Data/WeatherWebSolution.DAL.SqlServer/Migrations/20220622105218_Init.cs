@@ -15,8 +15,8 @@ namespace WeatherWebSolution.DAL.SqlServer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,18 +31,11 @@ namespace WeatherWebSolution.DAL.SqlServer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Time = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SourceId = table.Column<int>(type: "int", nullable: false),
-                    DataSourceId = table.Column<int>(type: "int", nullable: true)
+                    SourceId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Values", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Values_Sources_DataSourceId",
-                        column: x => x.DataSourceId,
-                        principalTable: "Sources",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Values_Sources_SourceId",
                         column: x => x.SourceId,
@@ -52,9 +45,10 @@ namespace WeatherWebSolution.DAL.SqlServer.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Values_DataSourceId",
-                table: "Values",
-                column: "DataSourceId");
+                name: "IX_Sources_Name",
+                table: "Sources",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Values_SourceId",

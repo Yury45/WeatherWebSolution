@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using WeatherWebSolution.DAL.Entities.Base;
-using WeatherWebSolution.Intefaces.Base.Entities;
 
 namespace WeatherWebSolution.DAL.Entities
 {
+    [Index(nameof(Time))]
     public class DataValue : Entity
     {
 
@@ -15,7 +11,7 @@ namespace WeatherWebSolution.DAL.Entities
 
         public string Value { get; set; }
 
-        public DataSource Source { get; set; }
+        public DataSource? Source { get; set; }
 
         bool IsFaultead { get; set; }
     }
