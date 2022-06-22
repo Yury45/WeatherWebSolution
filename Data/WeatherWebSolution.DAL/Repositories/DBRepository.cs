@@ -11,7 +11,7 @@ using WeatherWebSolution.Intefaces.Base.Entities.Reposytories;
 
 namespace WeatherWebSolution.DAL.Repositories
 {
-    internal class DBRepository<T> : IRepository<T> where T : Entity, new()
+    public class DbRepository<T> : IRepository<T> where T : Entity, new()
     {
         private readonly DataDB _db;
 
@@ -23,7 +23,7 @@ namespace WeatherWebSolution.DAL.Repositories
 
         public DbSet<DataSource> Sources { get; set; }
 
-        public DBRepository(DataDB db)
+        public DbRepository(DataDB db)
         {
             _db = db;
             Set = _db.Set<T>();

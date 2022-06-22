@@ -7,9 +7,8 @@ using WeatherWebSolution.Intefaces.Base.Entities;
 
 namespace WeatherWebSolution.DAL.Entities.Base
 {
-    public abstract class NamedEntity : INamedEntity
+    public abstract class NamedEntity :Entity, INamedEntity
     {
-        public int Id { get; set; }
 
         public string Name { get; set; }
     }
