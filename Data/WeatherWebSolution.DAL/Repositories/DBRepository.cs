@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WeatherWebSolution.DAL.Context;
 using WeatherWebSolution.DAL.Entities;
 using WeatherWebSolution.DAL.Entities.Base;

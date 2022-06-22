@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using WeatherWebSolution.DAL.Context;
 using WeatherWebSolution.DAL.Entities.Base;
-using WeatherWebSolution.Intefaces.Base.Entities;
 using WeatherWebSolution.Intefaces.Base.Entities.Reposytories;
 
 namespace WeatherWebSolution.DAL.Repositories

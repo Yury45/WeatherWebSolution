@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using WeatherWebSolution.WPF.Services;
 using WeatherWebSolution.WPF.ViewModels;

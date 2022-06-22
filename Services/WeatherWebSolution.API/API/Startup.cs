@@ -1,17 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using WeatherWebSolution.API.Data;
 using WeatherWebSolution.DAL.Context;
 
 namespace WeatherWebSolution.API
@@ -23,6 +17,8 @@ namespace WeatherWebSolution.API
             services.AddDbContext<DataDB>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Data"),
                 o => o.MigrationsAssembly("WeatherWebSolution.DAL.SqlServer")));
 
+            services.AddTransient<DataDBInitializer>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -31,8 +27,10 @@ namespace WeatherWebSolution.API
         }
 
          
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataDBInitializer db)
         {
+            db.Initialize();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
