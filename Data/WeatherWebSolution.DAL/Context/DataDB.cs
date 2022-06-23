@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WeatherWebSolution.DAL.Entities;
 
 namespace WeatherWebSolution.DAL.Context
@@ -21,8 +16,9 @@ namespace WeatherWebSolution.DAL.Context
 
             model.Entity<DataSource>()
                 .HasMany<DataValue>()
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade); ;
+                .WithOne(v => v.Source)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

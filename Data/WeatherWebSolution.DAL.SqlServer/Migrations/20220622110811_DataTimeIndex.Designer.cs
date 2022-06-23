@@ -12,8 +12,8 @@ using WeatherWebSolution.DAL.Context;
 namespace WeatherWebSolution.DAL.SqlServer.Migrations
 {
     [DbContext(typeof(DataDB))]
-    [Migration("20220620094053_Init")]
-    partial class Init
+    [Migration("20220622110811_DataTimeIndex")]
+    partial class DataTimeIndex
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,9 +38,12 @@ namespace WeatherWebSolution.DAL.SqlServer.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Sources");
                 });
@@ -53,10 +56,7 @@ namespace WeatherWebSolution.DAL.SqlServer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("DataSourceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SourceId")
+                    b.Property<int?>("SourceId")
                         .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("Time")
@@ -68,25 +68,19 @@ namespace WeatherWebSolution.DAL.SqlServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DataSourceId");
-
                     b.HasIndex("SourceId");
+
+                    b.HasIndex("Time");
 
                     b.ToTable("Values");
                 });
 
             modelBuilder.Entity("WeatherWebSolution.DAL.Entities.DataValue", b =>
                 {
-                    b.HasOne("WeatherWebSolution.DAL.Entities.DataSource", null)
-                        .WithMany()
-                        .HasForeignKey("DataSourceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("WeatherWebSolution.DAL.Entities.DataSource", "Source")
                         .WithMany()
                         .HasForeignKey("SourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Source");
                 });

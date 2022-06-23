@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeatherWebSolution.DAL.Context;
 
@@ -11,9 +12,10 @@ using WeatherWebSolution.DAL.Context;
 namespace WeatherWebSolution.DAL.SqlServer.Migrations
 {
     [DbContext(typeof(DataDB))]
-    partial class DataDBModelSnapshot : ModelSnapshot
+    [Migration("20220622105218_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,8 +69,6 @@ namespace WeatherWebSolution.DAL.SqlServer.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("SourceId");
-
-                    b.HasIndex("Time");
 
                     b.ToTable("Values");
                 });

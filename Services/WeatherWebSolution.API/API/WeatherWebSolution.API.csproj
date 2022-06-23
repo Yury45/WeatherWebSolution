@@ -25,5 +25,12 @@
     <ProjectReference Include="..\..\..\Common\WeatherWebSolution.Domain\WeatherWebSolution.Domain.csproj" />
     <ProjectReference Include="..\..\..\Data\WeatherWebSolution.DAL.SqlServer\WeatherWebSolution.DAL.SqlServer.csproj" />
   </ItemGroup>
+		
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
 </Project>
