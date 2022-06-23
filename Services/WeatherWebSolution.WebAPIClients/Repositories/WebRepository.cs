@@ -10,6 +10,13 @@ namespace WeatherWebSolution.WebAPIClients.Repositories
 {
     internal class WebRepository<T> : IRepository<T> where T : IEntity
     {
+        private readonly HttpClient _client;
+
+        public WebRepository(HttpClient client)
+        {
+            _client = client;
+        }
+
         public Task<bool> ExistId(int id, CancellationToken cancel = default)
         {
             throw new NotImplementedException();
