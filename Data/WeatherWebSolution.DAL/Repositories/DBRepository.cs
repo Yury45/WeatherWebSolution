@@ -12,6 +12,8 @@ namespace WeatherWebSolution.DAL.Repositories
 
         protected virtual IQueryable<T> Items => Set;
 
+        public bool AuroSaveChanges { get; set; } 
+
         protected DbSet<T> Set { get; }
 
         public DbSet<DataValue> Values { get; set; }
@@ -30,7 +32,8 @@ namespace WeatherWebSolution.DAL.Repositories
 
             await _db.AddAsync(item, cancel).ConfigureAwait(false);
 
-            await _db.SaveChangesAsync(cancel).ConfigureAwait(false);
+            if (AuroSaveChanges)
+                await SaveChanges(cancel).ConfigureAwait(false);
 
             return item;
         }
@@ -43,7 +46,8 @@ namespace WeatherWebSolution.DAL.Repositories
                 return null;
 
             _db.Remove(item);
-            await _db.SaveChangesAsync(cancel).ConfigureAwait(false);
+            if (AuroSaveChanges)
+                await SaveChanges(cancel).ConfigureAwait(false);
             return item;
         }
 
@@ -78,7 +82,11 @@ namespace WeatherWebSolution.DAL.Repositories
             if (count <= 0)
                 return Enumerable.Empty<T>();
 
-            var query = Items;
+            IQueryable<T> query = Items switch
+            {
+                IOrderedQueryable<T> orderedQueryable => orderedQueryable,
+                { } unorderedQueryable => unorderedQueryable.OrderBy(i => i.Id)
+            };
             if (skip > 0)
                 query = query.Skip(skip);
             return await query.Take(count).ToArrayAsync(cancel).ConfigureAwait(false);
@@ -132,8 +140,14 @@ namespace WeatherWebSolution.DAL.Repositories
             if (item is null) throw new ArgumentNullException(nameof(item));
 
             _db.Update(item);
-            await _db.SaveChangesAsync(cancel).ConfigureAwait(false);
+            if (AuroSaveChanges)
+                await SaveChanges(cancel).ConfigureAwait(false);
             return item;
+        }
+
+        public async Task<int> SaveChanges(CancellationToken cancel = default)
+        {
+            return await _db.SaveChangesAsync(cancel).ConfigureAwait(false);
         }
 
         protected record Page(IEnumerable<T> Items, int TotalCount, int PageIndex, int PageSize) : IPage<T>;
