@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,18 @@ namespace WeatherWebSolution.API.Controllers
         public DataSourcesController(IRepository<DataSource> Repository)
         {
             _Repository = Repository;
+        }
+
+        [HttpGet("page/{pageIndex:int}/{pageSize:int}")]
+        [HttpGet("page/[[{pageIndex:int}/{pageSize:int}]]")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IPage<DataSource>>> GetPage(int pageIndex, int pageSize)
+        {
+            var result = await _Repository.GetPage(pageIndex, pageSize);
+            return result.Items.Any()
+                ? Ok(result)
+                : NotFound(result);
         }
 
         [HttpGet("count")]
