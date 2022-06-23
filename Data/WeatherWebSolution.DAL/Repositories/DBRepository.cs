@@ -85,6 +85,7 @@ namespace WeatherWebSolution.DAL.Repositories
             IQueryable<T> query = Items switch
             {
                 IOrderedQueryable<T> orderedQueryable => orderedQueryable,
+
                 { } unorderedQueryable => unorderedQueryable.OrderBy(i => i.Id)
             };
             if (skip > 0)
@@ -126,8 +127,15 @@ namespace WeatherWebSolution.DAL.Repositories
             if (totalCount == 0)
                 return new Page(Enumerable.Empty<T>(), 0, pageIndex, pageSize);
 
+            query = Items switch
+            {
+                IOrderedQueryable<T> orderedQueryable => orderedQueryable,
+
+                { } unorderedQueryable => unorderedQueryable.OrderBy(i => i.Id)
+            };
+
             if (pageIndex > 0)
-                query.Skip(pageIndex * pageSize);
+                query = query.Skip(pageIndex * pageSize);
             query = query.Take(pageSize);
 
             var items = await query.ToArrayAsync(cancel).ConfigureAwait(false);
