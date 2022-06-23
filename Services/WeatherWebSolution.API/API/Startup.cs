@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using WeatherWebSolution.API.Data;
 using WeatherWebSolution.DAL.Context;
+using WeatherWebSolution.DAL.Repositories;
+using WeatherWebSolution.Intefaces.Base.Entities.Reposytories;
 
 namespace WeatherWebSolution.API
 {
@@ -18,6 +20,9 @@ namespace WeatherWebSolution.API
                 o => o.MigrationsAssembly("WeatherWebSolution.DAL.SqlServer")));
 
             services.AddTransient<DataDBInitializer>();
+
+            services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+            services.AddScoped(typeof(INamedRepository<>), typeof(DbNamedRepository<>));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
