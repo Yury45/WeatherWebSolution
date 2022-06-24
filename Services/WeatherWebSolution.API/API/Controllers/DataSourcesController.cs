@@ -25,8 +25,7 @@ namespace WeatherWebSolution.API.Controllers
         public async Task<IActionResult> Add(DataSource item)
         {
             var result = await _Repository.Add(item);
-
-            return CreatedAtAction(nameof(GetById), new { id = result.Id});
+            return CreatedAtAction(nameof(Get), new { id = result.Id}, result);
         }
 
         [HttpGet("page/{pageIndex:int}/{pageSize:int}")]
@@ -61,9 +60,10 @@ namespace WeatherWebSolution.API.Controllers
         public async Task<IActionResult> GetAll() => Ok(await _Repository.GetAll());
 
         [HttpGet("{id:int}")]
+        [ActionName("Get")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> Get(int id)
         {
             var item = await _Repository.GetById(id);
             if(item == null)
@@ -81,11 +81,9 @@ namespace WeatherWebSolution.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(DataSource item)
         {
-            var result = _Repository.Update(item);
-
-            if(result is null) 
+            if (await _Repository.Update(item) is not { } result)
                 return NotFound(item);
-            return AcceptedAtAction(nameof(GetById), new { Id = result.Id });
+            return AcceptedAtAction(nameof(Get), new { id = result.Id }, result);
         }
 
         [HttpDelete]
@@ -93,8 +91,7 @@ namespace WeatherWebSolution.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(DataSource item)
         {
-            var result = _Repository.Delete(item);
-            if (result is null) 
+            if(await _Repository.Delete(item) is not { } result)
                 return NotFound(item);
             return Ok(result);
         }
@@ -104,8 +101,7 @@ namespace WeatherWebSolution.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteById(int id)
         {
-            var result = _Repository.DeleteById(id);
-            if (result is null)
+            if(await _Repository.DeleteById(id) is not { } result)
                 return NotFound(id);
             return Ok(result);
         }

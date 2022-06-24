@@ -12,7 +12,7 @@ namespace WeatherWebSolution.DAL.Repositories
 
         protected virtual IQueryable<T> Items => Set;
 
-        public bool AuroSaveChanges { get; set; } 
+        public bool AuroSaveChanges { get; set; } = true;
 
         protected DbSet<T> Set { get; }
 
