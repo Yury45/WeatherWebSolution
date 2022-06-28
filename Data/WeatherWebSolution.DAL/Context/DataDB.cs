@@ -13,7 +13,6 @@ namespace WeatherWebSolution.DAL.Context
         protected override void OnModelCreating(ModelBuilder model)
         {
             base.OnModelCreating(model);
-
             model.Entity<DataSource>()
                 .HasMany<DataValue>()
                 .WithOne(v => v.Source)

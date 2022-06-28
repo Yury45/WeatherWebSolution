@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
+using Microsoft.EntityFrameworkCore.Internal;
 using WeatherWebSolution.DAL.Context;
 using WeatherWebSolution.DAL.Entities;
 using WeatherWebSolution.DAL.Entities.Base;
@@ -32,14 +36,18 @@ namespace WeatherWebSolution.DAL.Repositories
 
             await _db.AddAsync(item, cancel).ConfigureAwait(false);
 
-            if (AuroSaveChanges)
-                await SaveChanges(cancel).ConfigureAwait(false);
+            await _db.SaveChangesAsync();
+
+
+            //if (AuroSaveChanges)
+            //    await SaveChanges(cancel).ConfigureAwait(false);
 
             return item;
         }
 
         public async Task<T> Delete(T item, CancellationToken cancel = default)
         {
+
             if (item is null) throw new ArgumentNullException(nameof(item));
 
             if (!await Exist(item, cancel).ConfigureAwait(false))

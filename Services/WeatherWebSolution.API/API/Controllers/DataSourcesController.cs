@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.DependencyInjection;
+using WeatherWebSolution.DAL.Context;
 using WeatherWebSolution.DAL.Entities;
 using WeatherWebSolution.Intefaces.Base.Entities.Reposytories;
 
@@ -15,6 +21,7 @@ namespace WeatherWebSolution.API.Controllers
     {
         private readonly IRepository<DataSource> _Repository;
 
+
         public DataSourcesController(IRepository<DataSource> Repository)
         {
             _Repository = Repository;
@@ -24,8 +31,9 @@ namespace WeatherWebSolution.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Add(DataSource item)
         {
-            var result = await _Repository.Add(item);
-            return CreatedAtAction(nameof(Get), new { id = result.Id}, result);
+            var result = await _Repository.Add(item).ConfigureAwait(false);
+            return AcceptedAtAction(nameof(Get), new { id = result.Id }, result);
+
         }
 
         [HttpGet("page/{pageIndex:int}/{pageSize:int}")]
@@ -44,7 +52,6 @@ namespace WeatherWebSolution.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
         public async Task<IActionResult> GetItemsCount() => Ok(await _Repository.GetCount());
 
-        [HttpGet("exist")]
         [HttpPost("exist")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(bool))]

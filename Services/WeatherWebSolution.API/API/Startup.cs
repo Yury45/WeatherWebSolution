@@ -24,6 +24,7 @@ namespace WeatherWebSolution.API
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddScoped(typeof(INamedRepository<>), typeof(DbNamedRepository<>));
 
+            services.AddDbContext<DataDB>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

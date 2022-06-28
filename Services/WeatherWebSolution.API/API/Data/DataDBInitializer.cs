@@ -17,6 +17,7 @@ namespace WeatherWebSolution.API.Data
 
         public void Initialize()
         {
+            _db.Sources.FromSqlRaw("SET IDENTITY_INSERT Devices ON");
             _db.Database.Migrate();
 
             if (_db.Sources.Any()) return;
@@ -48,6 +49,7 @@ namespace WeatherWebSolution.API.Data
                 _db.Values.AddRange(values);
             }
             _db.SaveChanges();
+
         }
     }
 }
