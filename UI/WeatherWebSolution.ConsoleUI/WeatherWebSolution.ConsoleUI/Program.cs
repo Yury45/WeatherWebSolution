@@ -1,7 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Data.Common;
+using System.Net;
 using System.Threading.Tasks;
+using WeatherWebSolution.DAL.Entities;
+using WeatherWebSolution.Intefaces.Base.Entities.Reposytories;
+using WeatherWebSolution.WebAPIClients.Repositories;
 
 namespace WeatherWebSolution.ConsoleUI
 {
@@ -19,7 +24,10 @@ namespace WeatherWebSolution.ConsoleUI
 
         private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
-
+            services.AddHttpClient<IRepository<DataSource>, WebRepository<DataSource>>(client =>
+            {
+                client.BaseAddress = new Uri($"{host.Configuration["WebAPI"]}/api/DataSources/");
+            });
         }
 
 

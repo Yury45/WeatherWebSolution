@@ -10,7 +10,7 @@ using WeatherWebSolution.Intefaces.Base.Entities.Reposytories;
 
 namespace WeatherWebSolution.WebAPIClients.Repositories
 {
-    internal class WebRepository<T> : IRepository<T> where T : IEntity
+    public class WebRepository<T> : IRepository<T> where T : IEntity
     {
         private readonly HttpClient _client;
 
@@ -131,6 +131,7 @@ namespace WeatherWebSolution.WebAPIClients.Repositories
             public int TotalCount { get; init; }
             public int PageIndex { get; init; }
             public int PageSize { get; init; }
+            int TotalPagesCount => (int)Math.Ceiling((double)TotalCount / PageSize);
         }
     }
 }

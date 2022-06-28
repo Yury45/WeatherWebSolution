@@ -24,6 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Data\WeatherWebSolution.DAL\WeatherWebSolution.DAL.csproj" />
 	  <ProjectReference Include="..\..\..\Services\WeatherWebSolution.WebAPIClients\WeatherWebSolution.WebAPIClients.csproj" />
 	</ItemGroup>
 
