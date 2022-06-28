@@ -36,11 +36,8 @@ namespace WeatherWebSolution.DAL.Repositories
 
             await _db.AddAsync(item, cancel).ConfigureAwait(false);
 
-            await _db.SaveChangesAsync();
-
-
-            //if (AuroSaveChanges)
-            //    await SaveChanges(cancel).ConfigureAwait(false);
+            if (AuroSaveChanges)
+                await SaveChanges(cancel).ConfigureAwait(false);
 
             return item;
         }
@@ -166,6 +163,9 @@ namespace WeatherWebSolution.DAL.Repositories
             return await _db.SaveChangesAsync(cancel).ConfigureAwait(false);
         }
 
-        protected record Page(IEnumerable<T> Items, int TotalCount, int PageIndex, int PageSize) : IPage<T>;
+        protected record Page(IEnumerable<T> Items, int TotalCount, int PageIndex, int PageSize) : IPage<T>
+        {
+            public int TotalPagesCount => (int)Math.Ceiling((double)TotalCount / PageSize);
+        }
     }
 }
