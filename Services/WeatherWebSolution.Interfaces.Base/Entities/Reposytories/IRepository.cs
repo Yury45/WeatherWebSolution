@@ -1,4 +1,8 @@
-﻿namespace WeatherWebSolution.Intefaces.Base.Entities.Reposytories
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace WeatherWebSolution.Intefaces.Base.Entities.Reposytories
 {
     public interface IRepository<T> where T : IEntity
     {
@@ -39,19 +43,22 @@
     public interface IPage<T>
     {
         //Метод возвращает перечисление всех элементов
-        IEnumerable<T> Items { get; }
+        IEnumerable<T> Items { get;  }
 
         //свойство - возвращает количество всех элементов перечисления 
         int TotalCount { get; }
 
         //свойство - возвращает номер страницы
-        int PageIndex { get; }
+        int PageIndex { get;  }
 
         //свойство - возвращает размер страницы
-        int PageSize { get; }
+        int PageSize { get;  }
+
+        //свойство возвращает общее количество страниц
+        int TotalPages { get; }
 
         //Метод возвращает общее количество страниц
-        int TotalPagesCount => (int)Math.Ceiling((double)TotalCount / PageSize);
+        //int TotalPagesCount => (int)Math.Ceiling((double)TotalCount / PageSize);
 
     }
 }

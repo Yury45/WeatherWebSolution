@@ -35,6 +35,11 @@ namespace WeatherWebSolution.ConsoleUI
         {
             using var host = Hosting;
             await host.StartAsync();
+            var data_sources = Services.GetRequiredService<IRepository<DataSource>>();
+
+            var sources = await data_sources.Get(3, 5);
+            foreach (var source in sources)
+                Console.WriteLine($"{source.Id}: {source.Name} - {source.Description}");
 
             Console.WriteLine("Done");
             Console.ReadLine();

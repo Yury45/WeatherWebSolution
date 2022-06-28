@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using WeatherWebSolution.Intefaces.Base.Entities;
 using WeatherWebSolution.Intefaces.Base.Entities.Reposytories;
@@ -127,11 +129,11 @@ namespace WeatherWebSolution.WebAPIClients.Repositories
 
         private class PageItems : IPage<T>
         {
-            public IEnumerable<T> Items { get; init; }
-            public int TotalCount { get; init; }
-            public int PageIndex { get; init; }
-            public int PageSize { get; init; }
-            int TotalPagesCount => (int)Math.Ceiling((double)TotalCount / PageSize);
+            public IEnumerable<T> Items { get; set; }
+            public int TotalCount { get; set; }
+            public int PageIndex { get; set; }
+            public int PageSize { get; set; }
+            public int TotalPages => (int)Math.Ceiling((double)TotalCount / PageSize);
         }
     }
 }

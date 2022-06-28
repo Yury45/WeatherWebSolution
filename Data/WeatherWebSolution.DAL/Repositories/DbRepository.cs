@@ -165,7 +165,7 @@ namespace WeatherWebSolution.DAL.Repositories
 
         protected record Page(IEnumerable<T> Items, int TotalCount, int PageIndex, int PageSize) : IPage<T>
         {
-            public int TotalPagesCount => (int)Math.Ceiling((double)TotalCount / PageSize);
+            public int TotalPages => (int)Math.Ceiling((double)TotalCount / PageSize);
         }
     }
 }
