@@ -19,7 +19,7 @@ namespace WeatherWebSolution.WPF.Infrastructure.Commands
             _Execute = Execute ?? throw new ArgumentNullException(nameof(Execute));
             _CanExecute = CanExecute;
         }
-        protected override void Execute(object parameter) => _Execute(parameter);
+        protected override void ExecuteAsync(object parameter) => _Execute(parameter);
 
         protected override bool CanExecute(object parameter) => _CanExecute?.Invoke(parameter) ?? true;
     }

@@ -35,13 +35,13 @@ namespace WeatherWebSolution.WPF.Infrastructure.Commands.Base
         void ICommand.Execute(object parameter)
         {
             if (CanExecute(parameter))
-                Execute(parameter);
+                ExecuteAsync(parameter);
         }
         #endregion
 
 
         protected virtual bool CanExecute(object parameter) => true;
 
-        protected abstract void Execute(object parameter);
+        protected abstract void ExecuteAsync(object parameter);
     }
 }

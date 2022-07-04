@@ -41,7 +41,7 @@ namespace WeatherWebSolution.WPF.Infrastructure.Commands.Base
             try
             {
                 Executable = false;
-                ExecuteAsync(parameter);
+                await ExecuteAsync(parameter);
             }
             catch
             {

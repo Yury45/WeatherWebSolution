@@ -2,4 +2,5 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:l="clr-namespace:WeatherWebSolution.WPF.Infrastructure.Commands">
     <l:CloseWindow x:Key="CloseWindowCommand"/>
+    <l:LoadDataSources x:Key="LoadDataSourcesCommand"/>
 </ResourceDictionary>
