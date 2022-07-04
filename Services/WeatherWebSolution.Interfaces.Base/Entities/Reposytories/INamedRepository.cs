@@ -1,4 +1,7 @@
-﻿namespace WeatherWebSolution.Intefaces.Base.Entities.Reposytories
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+namespace WeatherWebSolution.Intefaces.Base.Entities.Reposytories
 {
     public interface INamedRepository<T> : IRepository<T> where T: INamedEntity
     {

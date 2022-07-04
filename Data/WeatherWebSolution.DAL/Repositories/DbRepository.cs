@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
+using Microsoft.EntityFrameworkCore.Internal;
 using WeatherWebSolution.DAL.Context;
 using WeatherWebSolution.DAL.Entities;
 using WeatherWebSolution.DAL.Entities.Base;
@@ -12,7 +16,7 @@ namespace WeatherWebSolution.DAL.Repositories
 
         protected virtual IQueryable<T> Items => Set;
 
-        public bool AuroSaveChanges { get; set; } 
+        public bool AuroSaveChanges { get; set; } = true;
 
         protected DbSet<T> Set { get; }
 
@@ -40,6 +44,7 @@ namespace WeatherWebSolution.DAL.Repositories
 
         public async Task<T> Delete(T item, CancellationToken cancel = default)
         {
+
             if (item is null) throw new ArgumentNullException(nameof(item));
 
             if (!await Exist(item, cancel).ConfigureAwait(false))
@@ -158,6 +163,9 @@ namespace WeatherWebSolution.DAL.Repositories
             return await _db.SaveChangesAsync(cancel).ConfigureAwait(false);
         }
 
-        protected record Page(IEnumerable<T> Items, int TotalCount, int PageIndex, int PageSize) : IPage<T>;
+        protected record Page(IEnumerable<T> Items, int TotalCount, int PageIndex, int PageSize) : IPage<T>
+        {
+            public int TotalPages => (int)Math.Ceiling((double)TotalCount / PageSize);
+        }
     }
 }
