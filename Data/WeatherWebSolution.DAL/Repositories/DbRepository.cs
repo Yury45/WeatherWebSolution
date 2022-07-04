@@ -1,8 +1,4 @@
-﻿using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
-using Microsoft.EntityFrameworkCore.Internal;
+﻿using Microsoft.EntityFrameworkCore;
 using WeatherWebSolution.DAL.Context;
 using WeatherWebSolution.DAL.Entities;
 using WeatherWebSolution.DAL.Entities.Base;
@@ -13,11 +9,6 @@ namespace WeatherWebSolution.DAL.Repositories
     public class DbRepository<T> : IRepository<T> where T : Entity, new()
     {
         private readonly DataDB _db;
-
-        protected virtual IQueryable<T> Items => Set;
-
-        public bool AuroSaveChanges { get; set; } = true;
-
         protected DbSet<T> Set { get; }
 
         public DbSet<DataValue> Values { get; set; }
@@ -29,6 +20,10 @@ namespace WeatherWebSolution.DAL.Repositories
             _db = db;
             Set = _db.Set<T>();
         }
+
+        protected virtual IQueryable<T> Items => Set;
+
+        public bool AuroSaveChanges { get; set; } = true;
 
         public async Task<T> Add(T item, CancellationToken cancel = default)
         {
@@ -163,6 +158,7 @@ namespace WeatherWebSolution.DAL.Repositories
             return await _db.SaveChangesAsync(cancel).ConfigureAwait(false);
         }
 
+        //Форма страницы записями
         protected record Page(IEnumerable<T> Items, int TotalCount, int PageIndex, int PageSize) : IPage<T>
         {
             public int TotalPages => (int)Math.Ceiling((double)TotalCount / PageSize);

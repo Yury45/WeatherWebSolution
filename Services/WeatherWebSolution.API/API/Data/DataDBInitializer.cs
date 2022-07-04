@@ -8,6 +8,7 @@ namespace WeatherWebSolution.API.Data
 {
     public class DataDBInitializer
     {
+
         private readonly DataDB _db;
 
         public DataDBInitializer(DataDB db)
@@ -17,7 +18,6 @@ namespace WeatherWebSolution.API.Data
 
         public void Initialize()
         {
-            _db.Sources.FromSqlRaw("SET IDENTITY_INSERT Devices ON");
             _db.Database.Migrate();
 
             if (_db.Sources.Any()) return;

@@ -3,6 +3,9 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Linq;
 using System.Windows;
+using WeatherWebSolution.DAL.Entities;
+using WeatherWebSolution.Intefaces.Base.Entities.Reposytories;
+using WeatherWebSolution.WebAPIClients.Repositories;
 using WeatherWebSolution.WPF.Services;
 using WeatherWebSolution.WPF.ViewModels;
 
@@ -25,6 +28,10 @@ namespace WeatherWebSolution.WPF
         {
             services.AddServices();
             services.AddViewModels();
+            services.AddHttpClient<IRepository<DataSource>, WebRepository<DataSource>>(client =>
+            {
+                client.BaseAddress = new Uri($"{host.Configuration["WebAPI"]}/api/DataSources/");
+            });
         }
 
         protected override async void OnStartup(StartupEventArgs e)

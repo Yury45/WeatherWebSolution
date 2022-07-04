@@ -1,10 +1,18 @@
-﻿namespace WeatherWebSolution.WPF.ViewModels
+﻿using System.Collections.ObjectModel;
+using WeatherWebSolution.DAL.Entities;
+using WeatherWebSolution.Intefaces.Base.Entities.Reposytories;
+
+namespace WeatherWebSolution.WPF.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        public MainWindowViewModel()
-        {
+        private readonly IRepository<DataSource> _dataSources;
 
+        public IRepository<DataSource> DataSource => _dataSources;
+
+        public MainWindowViewModel(IRepository<DataSource> dataSources)
+        {
+            _dataSources = dataSources;
         }
 
         #region _Title : string - Название главного окна
@@ -34,8 +42,7 @@
 
         #endregion
 
-
-
+        public ObservableCollection<DataSource> DataSources { get; } = new();
 
     }
 }
