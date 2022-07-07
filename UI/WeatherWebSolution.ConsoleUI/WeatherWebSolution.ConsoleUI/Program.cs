@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Data.Common;
-using System.Net;
 using System.Threading.Tasks;
 using WeatherWebSolution.DAL.Entities;
 using WeatherWebSolution.Intefaces.Base.Entities.Reposytories;
