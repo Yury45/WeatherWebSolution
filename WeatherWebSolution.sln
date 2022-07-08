@@ -38,6 +38,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherWebSolution.API", "Services\WeatherWebSolution.API\API\WeatherWebSolution.API.csproj", "{FFF523B5-CA1C-41E3-9F81-E472B024F730}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherWebSolution.BlazorUI", "UI\WeatherWebSolution.BlazorUI\WeatherWebSolution.BlazorUI.csproj", "{DC08C07A-262B-4BA7-A9AF-2431D72D81EA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9025E852-52BC-46F5-8039-8C5CFE051D2B} = {9025E852-52BC-46F5-8039-8C5CFE051D2B}
+		{BB5B5937-C917-4D79-BDC4-6FEB5FAC67FA} = {BB5B5937-C917-4D79-BDC4-6FEB5FAC67FA}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

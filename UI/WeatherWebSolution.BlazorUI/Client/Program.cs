@@ -1,6 +1,14 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using WeatherWebSolution.BlazorUI;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using WeatherWebSolution.BlazorUI.Infrastructure.Extentions;
+using WeatherWebSolution.BlazorUI.Pages;
+using WeatherWebSolution.Domain.Base;
+using WeatherWebSolution.Intefaces.Base.Entities.Reposytories;
+using WeatherWebSolution.WebAPIClients.Repositories;
 
 namespace WeatherWebSolution.BlazorUI
 {
@@ -12,7 +20,13 @@ namespace WeatherWebSolution.BlazorUI
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            var services = builder.Services;
+
+            services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            //services.AddHttpClient<IRepository<DataSourceInfo>, WebRepository<DataSourceInfo>>(
+            //    (host, client) => client.BaseAddress = new(host.GetRequiredService<IWebAssemblyHostEnvironment>().BaseAddress + "api/SourcesRepository"));
+
+            services.AddApi<IRepository<DataSourceInfo>, WebRepository<DataSourceInfo>>("api/SourcesRepository");
 
             await builder.Build().RunAsync();
         }

@@ -20,6 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\WeatherWebSolution.Domain.Base\WeatherWebSolution.Domain.Base.csproj" />
+    <ProjectReference Include="..\..\Services\WeatherWebSolution.WebAPIClients\WeatherWebSolution.WebAPIClients.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
