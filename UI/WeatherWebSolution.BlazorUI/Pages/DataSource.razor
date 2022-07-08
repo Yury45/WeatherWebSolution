@@ -40,20 +40,6 @@ else
 
 @code
 {
-    private IList<DataSourceInfo> _sources;
-
-    private async Task UpdateSource() => _sources = (await _repository.GetAll()).ToList();
     
 
-    protected override async Task OnInitializedAsync() => await UpdateSource();
-
-    private async Task RefreshButton_OnClick() => await UpdateSource();
-
-    private void Remove(DataSourceInfo source)
-    {
-        if (_sources is not {Count: >0}) return;
-
-        _sources.Remove(source);
-
-    }
 }
