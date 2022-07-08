@@ -22,9 +22,8 @@ namespace WeatherWebSolution.BlazorUI
 
             var services = builder.Services;
 
-            services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            //services.AddHttpClient<IRepository<DataSourceInfo>, WebRepository<DataSourceInfo>>(
-            //    (host, client) => client.BaseAddress = new(host.GetRequiredService<IWebAssemblyHostEnvironment>().BaseAddress + "api/SourcesRepository"));
+            services.AddScoped(sp => new HttpClient
+                { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             services.AddApi<IRepository<DataSourceInfo>, WebRepository<DataSourceInfo>>("api/SourcesRepository");
 

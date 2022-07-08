@@ -1,3 +1,45 @@
 ﻿@page "/datasource"
+@using WeatherWebSolution.Intefaces.Base.Entities.Reposytories
+@using WeatherWebSolution.Domain.Base
+@inject IRepository<DataSourceInfo> _repository
 
-<p>Источник данных</p>
+<button class="btn btn-outline-primary" @onclick="RefreshButton_OnClick">Перезагрузить</button>
+
+@if (_sources is { } sources)
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Название</th>
+            <th>Описание</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var source in sources)
+        {
+            <tr>
+                <td>@source.Id</td>
+                <td>@source.Name</td>
+                <td>@source.Description</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Подождите, происходит обработка запроса...</p>
+}
+
+@code
+{
+    private IList<DataSourceInfo> _sources;
+
+    private async Task UpdateSource() => _sources = (await _repository.GetAll()).ToList();
+    
+
+    protected override async Task OnInitializedAsync() => await UpdateSource();
+
+    private async Task RefreshButton_OnClick() => await UpdateSource();
+}
