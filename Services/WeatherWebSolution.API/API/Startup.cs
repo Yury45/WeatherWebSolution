@@ -25,6 +25,9 @@ namespace WeatherWebSolution.API
             services.AddScoped(typeof(INamedRepository<>), typeof(DbNamedRepository<>));
 
             services.AddControllers();
+
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
