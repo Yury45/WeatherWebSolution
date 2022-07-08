@@ -58,7 +58,7 @@ namespace WeatherWebSolution.Intefaces.Base.Entities.Reposytories
         int TotalPages { get; }
 
         //Метод возвращает общее количество страниц
-        //int TotalPagesCount => (int)Math.Ceiling((double)TotalCount / PageSize);
+        //int TotalPages => (int)Math.Ceiling((double)TotalCount / PageSize);
 
     }
 }
