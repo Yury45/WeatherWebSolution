@@ -3,7 +3,23 @@
 @using WeatherWebSolution.Domain.Base
 @inject IRepository<DataSourceInfo> _repository
 
+<h3>Данные</h3>
+
 <button class="btn btn-outline-primary" @onclick="RefreshButton_OnClick">Перезагрузить</button>
+
+<hr/>
+
+<EditForm Model="_createdNewSouceModel" OnValidSubmit="OnSourceCreated">
+    <div class="row">
+        <div class="col-3">
+            <InputText id="new-datasource-name" @bind-Value="_createdNewSouceModel.Name"/>
+        </div>
+        <div class="col-9">
+            <InputText id="new-datasource-description" @bind-Value="_createdNewSouceModel.Description"/>
+        </div>
+    </div>
+    <button class="btn btn-outline-primary" type="submit">Создать</button>
+</EditForm>
 
 @if (_sources is { } sources)
 {
